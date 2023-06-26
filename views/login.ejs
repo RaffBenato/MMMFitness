@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/7cc20310dc.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="./style.css" />
+    <title>MMM Fitness</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="toptier">
+        <img class="logo-img" src="./img/logo.png" alt="" />
+
+        <div class="menu-btn">
+          <div class="btn-line btn-line1"></div>
+          <div class="btn-line btn-line2"></div>
+          <div class="btn-line btn-line3"></div>
+        </div>
+      </div>
+
+      <div class="menu">
+        <a class="menu-item" href="/">HOME</a>
+        <a class="menu-item" href="/bio">BIO</a>
+        <a class="menu-item" href="/services">SERVICES</a>
+        <a class="menu-item" href="/testimonials">TESTIMONIALS</a>
+        <a class="menu-item" href="/contact">CONTACT</a>
+        <a class="menu-item menu-item-hilight" href="/login">LOG IN</a>
+      </div>
+
+      <div class="landing">
+        <div class="card">
+          <form action="/login" method="POST" class="forms">
+            <% if (messages.error) { %>
+            <div class="error-message">
+              <strong><%= messages.error %> </strong>
+            </div>
+            <% } %>
+
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-input" />
+
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-input" />
+
+            <button type="submit" class="form-btn">LOG IN</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer">
+        <img class="logo-footer" src="./img/logodarkbg.png" alt="" />
+
+        <div class="footertext">
+          <div class="footertitle">MMM Fitness</div>
+          <div class="footert">Ian Clasby</div>
+          <div class="footericons">
+            <div class="footericon1">
+              <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+            </div>
+            <div class="footericon1">
+              <a href="#"><i class="fa-brands fa-square-instagram"></i></a>
+            </div>
+            <div class="footericon1">
+              <a href="#"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+            <div class="footericon1">
+              <a href="https://wa.me/447584485502"
+                ><i class="fa-brands fa-square-whatsapp"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./main.js"></script>
+  </body>
+</html>
