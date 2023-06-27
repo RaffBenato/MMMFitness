@@ -20,9 +20,15 @@ const users = [
   },
   {
     id: "70",
-    name: "Mongolia",
+    name: "Mongo",
     email: "raffbenato@gmail.com",
     password: "caralho",
+  },
+  {
+    id: "01",
+    name: "Admin",
+    email: "admin@admin.com",
+    password: "69",
   },
 ];
 
@@ -94,9 +100,22 @@ app.get("/service3", (req, res) => {
 });
 
 app.get("/dashboard", checkAuthenticated, (req, res) => {
-  res.render("dashboard.ejs", { name: req.user.name });
+  if (req.user.name === "Admin") {
+    res.render("admin.ejs");
+  } else {
+    res.render("dashboard.ejs", { name: req.user.name });
+  }
 });
 
+app.get("/admin", checkAuthenticated, (req, res) => {
+  if (req.user.name === "Admin") {
+    res.render("admin.ejs");
+  } else {
+    res.render("dashboard.ejs", { name: req.user.name });
+  }
+});
+
+////////////////////////////////////////////
 app.delete("/logout", (req, res) => {
   req.logout(req.user, (err) => {
     if (err) return next(err);
