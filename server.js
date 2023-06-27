@@ -1,8 +1,13 @@
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
+require("./db.js");
+const UserRouter = require("./api/User");
+
+const User = require("./models/User");
 
 const express = require("express");
+const bodyParser = require("express").json;
 const app = express();
 const bcrypt = require("bcrypt");
 const passport = require("passport");
@@ -11,40 +16,36 @@ const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
 
-const users = [
-  {
-    id: "69",
-    name: "Rafael",
-    email: "benato@email.com",
-    password: "cara",
-  },
-  {
-    id: "70",
-    name: "Mongo",
-    email: "raffbenato@gmail.com",
-    password: "caralho",
-  },
-  {
-    id: "01",
-    name: "Admin",
-    email: "admin@admin.com",
-    password: "69",
-  },
-];
-
 initializePassport(
   passport,
-  (email) => users.find((user) => user.email === email),
-  (id) => users.find((user) => user.id === id)
+  async (email) => {
+    try {
+      const user = await User.findOne({ email });
+      return user;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  },
+  async (id) => {
+    try {
+      const user = await User.findOne({ id });
+      return user;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
 );
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/public"));
 app.use(flash());
+app.use(bodyParser());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    resave: false, // We wont resave the session variable if nothing is changed
+    resave: false,
     saveUninitialized: false,
   })
 );
@@ -63,6 +64,8 @@ app.post(
 );
 
 //ROUTES
+app.use("/user", UserRouter);
+
 app.get("/", (req, res) => {
   res.render("index.ejs");
 });
@@ -108,6 +111,7 @@ app.get("/dashboard", checkAuthenticated, (req, res) => {
 });
 
 app.get("/admin", checkAuthenticated, (req, res) => {
+  console.log(req.user.name);
   if (req.user.name === "Admin") {
     res.render("admin.ejs");
   } else {
