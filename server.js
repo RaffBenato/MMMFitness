@@ -103,7 +103,7 @@ app.get("/service3", (req, res) => {
 });
 
 app.get("/dashboard", checkAuthenticated, (req, res) => {
-  if (req.user.name === "Admin") {
+  if (req.user.isadmin === true) {
     res.render("admin.ejs");
   } else {
     res.render("dashboard.ejs", { name: req.user.name });
@@ -111,8 +111,7 @@ app.get("/dashboard", checkAuthenticated, (req, res) => {
 });
 
 app.get("/admin", checkAuthenticated, (req, res) => {
-  console.log(req.user.name);
-  if (req.user.name === "Admin") {
+  if (req.user.isadmin === true) {
     res.render("admin.ejs");
   } else {
     res.render("dashboard.ejs", { name: req.user.name });
