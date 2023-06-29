@@ -3,7 +3,8 @@ const router = express.Router();
 
 const User = require("./../models/User");
 
-router.use(express.static(__dirname + "./../public"));
+const path = require("path");
+router.use(express.static(path.join(__dirname, "/../public")));
 
 router.post("/add", (req, res) => {
   let id = Date.now() + Math.random().toString();
@@ -26,7 +27,7 @@ router.post("/add", (req, res) => {
           password,
         });
         newUser.save();
-        res.render("admin.ejs");
+        res.redirect("/admin");
       }
     })
     .catch((err) => {
@@ -36,6 +37,40 @@ router.post("/add", (req, res) => {
         message: "An error occcurred while checking for existing email",
       });
     });
+});
+
+router.get("/edit/:id", (req, res) => {
+  let id = req.params.id;
+  User.findById(id).then((user) => {
+    const ah = path.join(__dirname, "/../public");
+    res.render("edituser.ejs", {
+      user: user,
+    });
+  });
+});
+
+router.post("/update/:id", (req, res) => {
+  let id = req.params.id;
+
+  User.findByIdAndUpdate(id, {
+    name: req.body.name,
+    email: req.body.email,
+    phone: req.body.phone,
+    password: req.body.password,
+  }).then((result) => {
+    res.redirect("/admin");
+  });
+});
+
+router.get("/delete/:id", (req, res) => {
+  let id = req.params.id;
+  User.findById(id).then((result) => {
+    if (result.isadmin === false) {
+      User.findByIdAndRemove(id).then((result) => {
+        res.redirect("/admin");
+      });
+    }
+  });
 });
 
 module.exports = router;

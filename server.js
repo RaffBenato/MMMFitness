@@ -103,7 +103,11 @@ app.get("/service3", (req, res) => {
 
 app.get("/dashboard", checkAuthenticated, (req, res) => {
   if (req.user.isadmin === true) {
-    res.render("admin.ejs");
+    User.find().then((users) => {
+      res.render("admin.ejs", {
+        users: users,
+      });
+    });
   } else {
     res.render("dashboard.ejs", { name: req.user.name });
   }
@@ -111,7 +115,11 @@ app.get("/dashboard", checkAuthenticated, (req, res) => {
 
 app.get("/admin", checkAuthenticated, (req, res) => {
   if (req.user.isadmin === true) {
-    res.render("admin.ejs");
+    User.find().then((users) => {
+      res.render("admin.ejs", {
+        users: users,
+      });
+    });
   } else {
     res.render("dashboard.ejs", { name: req.user.name });
   }
@@ -148,19 +156,3 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 app.listen(3000);
-
-// app.post("/login", async (req, res) => {
-//   try {
-//     //const hashedPassword = await bcrypt.hash(req.body.password, 10);
-//     users.push({
-//       id: Date.now().toString(),
-//       email: req.body.email,
-//       password: req.body.password,
-//     });
-//     console.log(users);
-//     res.redirect("/");
-//   } catch (e) {
-//     console.log(e);
-//     res.redirect("/login");
-//   }
-// });

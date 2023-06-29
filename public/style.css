@@ -229,6 +229,7 @@ a {
   width: 90vw;
   background-color: rgba(250, 235, 215, 0.425);
   margin-top: 20px;
+  padding-top: 15px;
   border: 3px white solid;
   border-radius: 10px;
   display: flex;

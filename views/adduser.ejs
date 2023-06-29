@@ -8,13 +8,13 @@
       src="https://kit.fontawesome.com/7cc20310dc.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="/style.css" />
     <title>MMM Fitness</title>
   </head>
   <body>
     <div class="container">
       <div class="toptier">
-        <img class="logo-img" src="./img/logo.png" alt="" />
+        <img class="logo-img" src="/img/logo.png" alt="" />
 
         <div class="menu-btn">
           <div class="btn-line btn-line1"></div>
@@ -24,6 +24,7 @@
       </div>
 
       <div class="menu">
+        <a class="menu-item" href="/admin">View Users</a>
         <a class="menu-item menu-item-s" href="#">Add User</a>
         <form action="/logout?_method=DELETE" method="POST">
           <button class="menu-item menu-item-hilight" type="submit">
@@ -51,7 +52,9 @@
             <label class="form-label">Password</label>
             <input type="text" name="password" class="form-input" />
 
-            <button type="submit" class="form-btn">ADD</button>
+            <div class="car-line">
+              <button type="submit" class="form-btn">ADD</button>
+            </div>
           </form>
         </div>
       </div>
@@ -82,6 +85,6 @@
       </div>
     </div>
 
-    <script src="./main.js"></script>
+    <script src="/main.js"></script>
   </body>
 </html>

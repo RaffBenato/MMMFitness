@@ -8,13 +8,13 @@
       src="https://kit.fontawesome.com/7cc20310dc.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="/style.css" />
     <title>MMM Fitness</title>
   </head>
   <body>
     <div class="container">
       <div class="toptier">
-        <img class="logo-img" src="./img/logo.png" alt="" />
+        <img class="logo-img" src="/img/logo.png" alt="" />
 
         <div class="menu-btn">
           <div class="btn-line btn-line1"></div>
@@ -24,7 +24,6 @@
       </div>
 
       <div class="menu">
-        <a class="menu-item" href="/adduser">Add User</a>
         <form action="/logout?_method=DELETE" method="POST">
           <button class="menu-item menu-item-hilight" type="submit">
             LOG OUT
@@ -33,44 +32,53 @@
       </div>
 
       <div class="landing">
-        <div class="main">
-          <% if (users != "") { %> <% users.forEach((row, index) => { %>
-          <div class="card-user">
-            <div class="card-title"><a href=""><%= row.name %></a></div>
-            <div class="card-line">
-              <div class="card-icon-left">
-                <i class="fa-solid fa-envelope"></i>
-              </div>
-              <a class="card-user-link" href="mailto:<%= row.email %>"
-                ><%= row.email %></a
-              >
+        <div class="card">
+          <form
+            action="/user/update/<%= user._id %>"
+            method="POST"
+            class="forms"
+          >
+            <% if (messages.error) { %>
+            <div class="error-message">
+              <strong><%= messages.error %> </strong>
             </div>
-            <div class="card-line">
-              <div class="card-icon-left">
-                <i class="fa-solid fa-phone"></i>
-              </div>
-              <a class="card-user-link" href="tel:<%= row.phone %>"
-                ><%= row.phone %></a
-              >
-            </div>
-            <div class="card-menu">
-              <div class="">
-                <a class="card-menu-icon-edit" href="/user/edit/<%= row._id %>"
-                  ><i class="fa-solid fa-pen-to-square"></i
-                ></a>
-              </div>
-              <div class="">
-                <a
-                  class="card-menu-icon-delete"
-                  href="/user/delete/<%= row._id %>"
-                  ><i class="fa-solid fa-trash"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-          <% }) %> <% } else { %>
-          <h1>No Users Found!</h1>
-          <% } %>
+            <% } %>
+            <div class="card-title">EDIT USER</div>
+
+            <label class="form-label">Name</label>
+            <input
+              type="text"
+              name="name"
+              value="<%= user.name %>"
+              class="form-input"
+            />
+
+            <label class="form-label">Email</label>
+            <input
+              type="email"
+              name="email"
+              value="<%= user.email %>"
+              class="form-input"
+            />
+
+            <label class="form-label">Phone</label>
+            <input
+              type="text"
+              name="phone"
+              value="<%= user.phone %>"
+              class="form-input"
+            />
+
+            <label class="form-label">Password</label>
+            <input
+              type="text"
+              name="password"
+              value="<%= user.password %>"
+              class="form-input"
+            />
+
+            <button type="submit" class="form-btn">UPDATE</button>
+          </form>
         </div>
       </div>
 
@@ -100,6 +108,6 @@
       </div>
     </div>
 
-    <script src="./main.js"></script>
+    <script src="/main.js"></script>
   </body>
 </html>
