@@ -9,7 +9,6 @@ const User = require("./models/User");
 const express = require("express");
 const bodyParser = require("express").json;
 const app = express();
-const bcrypt = require("bcrypt");
 const passport = require("passport");
 const initializePassport = require("./passport-config");
 const flash = require("express-flash");
@@ -113,6 +112,14 @@ app.get("/dashboard", checkAuthenticated, (req, res) => {
 app.get("/admin", checkAuthenticated, (req, res) => {
   if (req.user.isadmin === true) {
     res.render("admin.ejs");
+  } else {
+    res.render("dashboard.ejs", { name: req.user.name });
+  }
+});
+
+app.get("/adduser", checkAuthenticated, (req, res) => {
+  if (req.user.isadmin === true) {
+    res.render("adduser.ejs");
   } else {
     res.render("dashboard.ejs", { name: req.user.name });
   }

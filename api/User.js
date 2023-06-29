@@ -3,7 +3,9 @@ const router = express.Router();
 
 const User = require("./../models/User");
 
-router.post("/signup", (req, res) => {
+router.use(express.static(__dirname + "./../public"));
+
+router.post("/add", (req, res) => {
   let id = Date.now() + Math.random().toString();
   let name = req.body.name;
   let email = req.body.email;
@@ -23,22 +25,8 @@ router.post("/signup", (req, res) => {
           email,
           password,
         });
-
-        newUser
-          .save()
-          .then((result) => {
-            res.json({
-              status: "SUCCESS",
-              message: "User registered",
-              data: result,
-            });
-          })
-          .catch((err) => {
-            res.json({
-              status: "FAILED",
-              message: "An error occurred while saving user",
-            });
-          });
+        newUser.save();
+        res.render("admin.ejs");
       }
     })
     .catch((err) => {

@@ -225,6 +225,61 @@ a {
   color: white;
 }
 
+.card-user {
+  width: 90vw;
+  background-color: rgba(250, 235, 215, 0.425);
+  margin-top: 20px;
+  border: 3px white solid;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.card-line {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  margin-top: 15px;
+}
+
+.card-icon-left {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-user-link {
+  width: 70%;
+  font-size: 1.3rem;
+  margin: 0 15px;
+  color: white;
+}
+
+.card-menu {
+  width: 100%;
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.7rem;
+}
+
+.card-menu-icon-edit {
+  color: darkgreen;
+  margin: 5px 15px;
+}
+
+.card-menu-icon-delete {
+  color: darkred;
+  margin: 5px 15px;
+}
+
 .slogan span {
   position: absolute;
   opacity: 1;
