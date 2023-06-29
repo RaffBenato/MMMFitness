@@ -73,4 +73,13 @@ router.get("/delete/:id", (req, res) => {
   });
 });
 
+router.get("/:id", (req, res) => {
+  let id = req.params.id;
+  User.findById(id).then((user) => {
+    res.render("user.ejs", {
+      user: user,
+    });
+  });
+});
+
 module.exports = router;

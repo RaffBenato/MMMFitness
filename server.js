@@ -133,6 +133,13 @@ app.get("/adduser", checkAuthenticated, (req, res) => {
   }
 });
 
+app.get("/user", checkAuthenticated, (req, res) => {
+  if (req.user.isadmin === true) {
+    res.render("user.ejs");
+  } else {
+    res.render("dashboard.ejs", { name: req.user.name });
+  }
+});
 ////////////////////////////////////////////
 app.delete("/logout", (req, res) => {
   req.logout(req.user, (err) => {
