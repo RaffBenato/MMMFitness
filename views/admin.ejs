@@ -85,17 +85,26 @@
               <div class="">
                 <a
                   class="card-menu-icon-delete card-menu-icon"
-                  href="/user/delete/<%= row._id %>"
-                  ><i class="fa-solid fa-trash"></i
+                  href=""
+                  onclick="showDeleteModal('<%= row._id %>', event)"
+                >
+                  <i class="fa-solid fa-trash"></i
                 ></a>
               </div>
-              <!-- <div class="modal hidden modal-<%= row._id %>">
-                Are you sure you want to delete <%= row.name %> ?
+              <div class="modal hidden" id="modal-<%= row._id %>">
+                <p>Are you sure you want to delete <%= row.name %>?</p>
                 <div class="card-line-btns">
-                  <a href="/admin" class="modal-btn">CANCEL</a>
-                  <button type="submit" class="modal-btn">DELETE</button>
+                  <a
+                    href="#"
+                    class="modal-btn"
+                    onclick="closeDeleteModal('<%= row._id %>')"
+                    >CANCEL</a
+                  >
+                  <a href="/user/delete/<%= row._id %>" class="modal-btn"
+                    >DELETE</a
+                  >
                 </div>
-              </div> -->
+              </div>
             </div>
           </div>
           <% }) %> <% } else { %>
@@ -130,7 +139,18 @@
         </div>
       </div>
     </div>
+    <script>
+      function showDeleteModal(id, event) {
+        event.preventDefault();
+        const modal = document.getElementById(`modal-${id}`);
+        modal.classList.remove("hidden");
+      }
 
-    <script src="./main.js"></script>
+      function closeDeleteModal(id) {
+        const modal = document.getElementById(`modal-${id}`);
+        modal.classList.add("hidden");
+      }
+    </script>
+    <script src="/main.js"></script>
   </body>
 </html>
