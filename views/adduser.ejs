@@ -36,9 +36,9 @@
       <div class="landing">
         <div class="card">
           <form action="/user/add" method="POST" class="forms">
-            <% if (messages.error) { %>
+            <% if (typeof message !== 'undefined') { %>
             <div class="error-message">
-              <strong><%= messages.error %> </strong>
+              <strong><%= message %> </strong>
             </div>
             <% } %>
             <div class="card-title">ADD USER</div>
@@ -52,7 +52,8 @@
             <label class="form-label">Password</label>
             <input type="text" name="password" class="form-input" />
 
-            <div class="car-line">
+            <div class="card-line-btns">
+              <a href="/admin" class="form-btn">CANCEL</a>
               <button type="submit" class="form-btn">ADD</button>
             </div>
           </form>
@@ -60,7 +61,7 @@
       </div>
 
       <div class="footer">
-        <img class="logo-footer" src="./img/logodarkbg.png" alt="" />
+        <img class="logo-footer" src="/img/logodarkbg.png" alt="" />
 
         <div class="footertext">
           <div class="footertitle">MMM Fitness</div>

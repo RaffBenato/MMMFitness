@@ -38,9 +38,9 @@
             method="POST"
             class="forms"
           >
-            <% if (messages.error) { %>
+            <% if (typeof message !== 'undefined') { %>
             <div class="error-message">
-              <strong><%= messages.error %> </strong>
+              <strong><%= message %> </strong>
             </div>
             <% } %>
             <div class="card-title">EDIT USER</div>
@@ -55,6 +55,7 @@
 
             <label class="form-label">Email</label>
             <input
+              readonly
               type="email"
               name="email"
               value="<%= user.email %>"
@@ -76,14 +77,16 @@
               value="<%= user.password %>"
               class="form-input"
             />
-
-            <button type="submit" class="form-btn">UPDATE</button>
+            <div class="card-line-btns">
+              <a href="/admin" class="form-btn">CANCEL</a>
+              <button type="submit" class="form-btn">UPDATE</button>
+            </div>
           </form>
         </div>
       </div>
 
       <div class="footer">
-        <img class="logo-footer" src="./img/logodarkbg.png" alt="" />
+        <img class="logo-footer" src="/img/logodarkbg.png" alt="" />
 
         <div class="footertext">
           <div class="footertitle">MMM Fitness</div>

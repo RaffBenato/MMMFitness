@@ -12,31 +12,29 @@ router.post("/add", (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
 
-  User.find({ email })
-    .then((result) => {
-      if (result.length) {
-        res.json({
-          status: "FAILED",
-          message: "Email already exists",
-        });
-      } else {
-        const newUser = new User({
-          id,
-          name,
-          email,
-          password,
-        });
-        newUser.save();
-        res.redirect("/admin");
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      res.json({
-        status: "FAILED",
-        message: "An error occcurred while checking for existing email",
+  if (name === "" || email === "" || password === "") {
+    res.render("adduser.ejs", { message: "Fill out all fields" });
+  } else {
+    User.find({ email })
+      .then((result) => {
+        if (result.length) {
+          res.render("adduser.ejs", { message: "Email already exists." });
+        } else {
+          const newUser = new User({
+            id,
+            name,
+            email,
+            password,
+          });
+          newUser.save();
+          res.redirect("/admin");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        res.render("adduser.ejs", { message: "ERROR: " + err });
       });
-    });
+  }
 });
 
 router.get("/edit/:id", (req, res) => {
@@ -51,15 +49,22 @@ router.get("/edit/:id", (req, res) => {
 
 router.post("/update/:id", (req, res) => {
   let id = req.params.id;
-
-  User.findByIdAndUpdate(id, {
-    name: req.body.name,
-    email: req.body.email,
-    phone: req.body.phone,
-    password: req.body.password,
-  }).then((result) => {
+  if (
+    req.body.name === "" ||
+    req.body.email === "" ||
+    req.body.password === ""
+  ) {
     res.redirect("/admin");
-  });
+  } else {
+    User.findByIdAndUpdate(id, {
+      name: req.body.name,
+      email: req.body.email,
+      phone: req.body.phone,
+      password: req.body.password,
+    }).then((result) => {
+      res.redirect("/admin");
+    });
+  }
 });
 
 router.get("/delete/:id", (req, res) => {
