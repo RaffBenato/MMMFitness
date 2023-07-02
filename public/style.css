@@ -224,6 +224,7 @@ a {
 
 .card-link {
   color: white;
+  text-decoration: none;
 }
 
 .card-user {
@@ -337,20 +338,17 @@ input {
   width: 100%;
   background-color: grey;
   border: white 1px solid;
-  padding: 20px;
+  padding: 10px 10px;
+  margin-top: 10px;
   color: white;
   font-size: 1.3rem;
+  box-sizing: border-box;
 }
 
 .form-label {
   color: white;
   font-size: 1.4rem;
   margin-top: 15px;
-}
-
-.form-input {
-  padding: 5px;
-  width: 100%;
 }
 
 .form-btn {

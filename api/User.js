@@ -49,6 +49,11 @@ router.get("/edit/:id", (req, res) => {
 
 router.post("/update/:id", (req, res) => {
   let id = req.params.id;
+  let postcodeUpperCase;
+  let dateOfBirthvar;
+  let dateOfStartvar;
+  let isAdminvar = false;
+
   if (
     req.body.name === "" ||
     req.body.email === "" ||
@@ -56,11 +61,36 @@ router.post("/update/:id", (req, res) => {
   ) {
     res.redirect("/admin");
   } else {
+    if (typeof req.body.postcode !== "undefined") {
+      postcodeUpperCase = req.body.postcode.toUpperCase();
+    }
+    if (typeof req.body.dateofbirth !== "undefined") {
+      dateOfBirthvar = new Date(req.body.dateofbirth);
+    }
+    if (typeof req.body.startdate !== "undefined") {
+      dateOfStartvar = new Date(req.body.startdate);
+    }
+    if (req.body.isadmin === "on") {
+      isAdminvar = true;
+    } else {
+      isadmin = false;
+    }
+
     User.findByIdAndUpdate(id, {
       name: req.body.name,
       email: req.body.email,
       phone: req.body.phone,
       password: req.body.password,
+      dateofbirth: dateOfBirthvar,
+      age: req.body.age,
+      gender: req.body.gender,
+      address: req.body.address,
+      city: req.body.city,
+      postcode: postcodeUpperCase,
+      emergencycontact: req.body.emergencycontact,
+      emergencynumber: req.body.emergencynumber,
+      startdate: dateOfStartvar,
+      isadmin: isAdminvar,
     }).then((result) => {
       res.redirect("/admin");
     });

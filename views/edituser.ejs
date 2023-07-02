@@ -77,6 +77,11 @@
               value="<%= user.password %>"
               class="form-input"
             />
+
+            <label class="form-label">Administrator</label>
+            <input clas="form-checkbox" type="checkbox" name="isadmin" <% if
+            (user.isadmin === true) { %>checked<% } %> />
+
             <div class="card-line-btns">
               <a href="/admin" class="form-btn">CANCEL</a>
               <button type="submit" class="form-btn">UPDATE</button>

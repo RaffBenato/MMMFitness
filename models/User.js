@@ -11,6 +11,15 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  dateofbirth: Date,
+  age: Number,
+  gender: String,
+  address: String,
+  city: String,
+  postcode: String,
+  emergencycontact: String,
+  emergencynumber: String,
+  startdate: Date,
 });
 
 const User = mongoose.model("User", UserSchema);
