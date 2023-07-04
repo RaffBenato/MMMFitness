@@ -8,13 +8,13 @@
       src="https://kit.fontawesome.com/7cc20310dc.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="/style.css" />
     <title>MMM Fitness</title>
   </head>
   <body>
     <div class="container">
       <div class="toptier">
-        <img class="logo-img" src="./img/logo.png" alt="" />
+        <img class="logo-img" src="/img/logo.png" alt="" />
 
         <div class="menu-btn">
           <div class="btn-line btn-line1"></div>
@@ -25,6 +25,9 @@
 
       <div class="menu">
         <a class="menu-item" href="/adduser">Add User</a>
+        <a class="menu-item" href="/user/workouts/viewallworkouts"
+          >View Workouts</a
+        >
         <form action="/logout?_method=DELETE" method="POST">
           <button class="menu-item menu-item-hilight" type="submit">
             LOG OUT

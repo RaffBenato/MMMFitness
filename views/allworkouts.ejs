@@ -25,6 +25,8 @@
 
       <div class="menu">
         <a class="menu-item" href="/admin">View Users</a>
+        <a class="menu-item" href="/adduser">Add User</a>
+        <a class="menu-item menu-item-s" href="#">View Workouts</a>
         <form action="/logout?_method=DELETE" method="POST">
           <button class="menu-item menu-item-hilight" type="submit">
             LOG OUT
@@ -34,60 +36,33 @@
 
       <div class="landing">
         <div class="card">
-          <form
-            action="/user/update/<%= user._id %>"
-            method="POST"
-            class="forms"
-          >
-            <% if (typeof message !== 'undefined') { %>
-            <div class="error-message">
-              <strong><%= message %> </strong>
-            </div>
-            <% } %>
-            <div class="card-title">EDIT USER</div>
+          <div class="card-title">ALL WORKOUTS</div>
 
-            <label class="form-label">Name</label>
-            <input
-              type="text"
-              name="name"
-              value="<%= user.name %>"
-              class="form-input"
-            />
+          <% users.forEach(user => { %>
+          <div class="card-inner">
+            <a href="/user/workouts/<%= user._id %>/admin" class="form-label"
+              ><%= user.name %></a
+            >
 
-            <label class="form-label">Email</label>
-            <input
-              readonly
-              type="email"
-              name="email"
-              value="<%= user.email %>"
-              class="form-input"
-            />
+            <% user.workouts.forEach(workout => { %>
+            <a
+              href="/user/workout/<%= user._id %>/<%= workout.title %>/admin"
+              class="form-label workout-title"
+              ><%= workout.title %></a
+            >
 
-            <label class="form-label">Phone</label>
-            <input
-              type="text"
-              name="phone"
-              value="<%= user.phone %>"
-              class="form-input"
-            />
+            <% }) %>
+            <a
+              href="/user/addworkout/<%= user._id %>"
+              class="form-label workout-title"
+              >+</a
+            >
+          </div>
+          <% }) %>
 
-            <label class="form-label">Password</label>
-            <input
-              type="text"
-              name="password"
-              value="<%= user.password %>"
-              class="form-input"
-            />
-
-            <label class="form-label">Administrator</label>
-            <input clas="form-checkbox" type="checkbox" name="isadmin" <% if
-            (user.isadmin === true) { %>checked<% } %> />
-
-            <div class="card-line-btns">
-              <a href="/admin" class="form-btn">CANCEL</a>
-              <button type="submit" class="form-btn">UPDATE</button>
-            </div>
-          </form>
+          <div class="card-line-wo-btns">
+            <a href="/admin" class="form-btn">BACK</a>
+          </div>
         </div>
       </div>
 

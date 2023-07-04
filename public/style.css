@@ -211,6 +211,19 @@ a {
   align-items: center;
 }
 
+.card-inner {
+  width: 97%;
+  background-color: rgba(250, 235, 215, 0.425);
+  margin: 6px;
+  padding: 5px;
+  border: 1px white solid;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .card-icon {
   font-size: 3rem;
   color: white;

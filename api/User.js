@@ -256,4 +256,15 @@ router.get("/workouts/delete/:userId/:workoutId", (req, res) => {
     });
 });
 
+router.get("/workouts/viewallworkouts", (req, res) => {
+  User.find({})
+    .then((users) => {
+      console.log(users);
+      res.render("allworkouts.ejs", { users: users });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});
+
 module.exports = router;
