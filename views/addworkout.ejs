@@ -36,7 +36,7 @@
       <div class="landing">
         <div class="card">
           <form
-            action="/user/update/<%= user._id %>"
+            action="/user/addworkout/<%= user._id %>"
             method="POST"
             class="forms"
           >
@@ -45,7 +45,9 @@
               <strong><%= message %> </strong>
             </div>
             <% } %>
-            <div class="card-title"><%= user.name %></div>
+            <div class="card-title">ADD WORKOUT</div>
+
+            <label class="form-label">For <%= user.name.toUpperCase() %></label>
 
             <input
               type="hidden"
@@ -68,84 +70,20 @@
               class="form-input"
             />
 
-            <label class="form-label">Gender</label>
-            <input
-              list="gender"
-              name="gender"
-              value="<%= user.gender %>"
-              class="form-input"
-            />
-            <datalist id="gender">
-              <option value="Male"></option>
-              <option value="Female"></option>
-            </datalist>
+            <label class="form-label">Workout Title</label>
+            <input type="text" name="title" class="form-input" />
 
-            <label class="form-label">Date of Birth</label>
-            <input type="date" name="dateofbirth" <% if (typeof user.dateofbirth
-            !== 'undefined') { %>value="<%=
-            user.dateofbirth.toISOString().split('T')[0] %>"<% } else { %>
-            value="<%= new Date().toISOString().split('T')[0] %>" <% } %>
-            class="form-input" />
-
-            <label class="form-label">Age</label>
-            <input
-              type="text"
-              name="age"
-              value="<%= user.age %>"
-              class="form-input"
-            />
-
-            <label class="form-label">Adress</label>
-            <input
-              type="text"
-              name="address"
-              value="<%= user.address %>"
-              class="form-input"
-            />
-
-            <label class="form-label">City</label>
-            <input
-              type="text"
-              name="city"
-              value="<%= user.city %>"
-              class="form-input"
-            />
-
-            <label class="form-label">PostCode</label>
-            <input
-              type="text"
-              name="postcode"
-              value="<%= user.postcode %>"
-              class="form-input"
-            />
-
-            <label class="form-label">Telephone Number</label>
-            <input
-              type="text"
-              name="phone"
-              value="<%= user.phone %>"
-              class="form-input"
-            />
-
-            <label class="form-label">Emergency Contact</label>
-            <input
-              type="text"
-              name="emergencycontact"
-              value="<%= user.emergencycontact %>"
-              class="form-input"
-            />
-
-            <label class="form-label">Emergency Number</label>
-            <input
-              type="text"
-              name="emergencynumber"
-              value="<%= user.emergencynumber %>"
-              class="form-input"
-            />
+            <label class="form-label">Workout</label>
+            <textarea
+              name="workout"
+              class="form-input form-area"
+              rows="4"
+              cols="50"
+            ></textarea>
 
             <div class="card-line-btns">
               <a href="/admin" class="form-btn">CANCEL</a>
-              <button type="submit" class="form-btn">UPDATE</button>
+              <button type="submit" class="form-btn">ADD</button>
             </div>
           </form>
         </div>

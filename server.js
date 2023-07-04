@@ -109,7 +109,7 @@ app.get("/dashboard", checkAuthenticated, (req, res) => {
       });
     });
   } else {
-    res.render("dashboard.ejs", { name: req.user.name });
+    res.render("dashboard.ejs", { user: req.user });
   }
 });
 
@@ -121,7 +121,7 @@ app.get("/admin", checkAuthenticated, (req, res) => {
       });
     });
   } else {
-    res.render("dashboard.ejs", { name: req.user.name });
+    res.render("dashboard.ejs", { user: req.user });
   }
 });
 
@@ -129,7 +129,7 @@ app.get("/adduser", checkAuthenticated, (req, res) => {
   if (req.user.isadmin === true) {
     res.render("adduser.ejs");
   } else {
-    res.render("dashboard.ejs", { name: req.user.name });
+    res.render("dashboard.ejs"), { user: req.user };
   }
 });
 
@@ -137,7 +137,7 @@ app.get("/user", checkAuthenticated, (req, res) => {
   if (req.user.isadmin === true) {
     res.render("user.ejs");
   } else {
-    res.render("dashboard.ejs", { name: req.user.name });
+    res.render("dashboard.ejs", { user: req.user });
   }
 });
 ////////////////////////////////////////////

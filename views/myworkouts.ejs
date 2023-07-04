@@ -8,8 +8,8 @@
       src="https://kit.fontawesome.com/7cc20310dc.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="./style.css" />
-    <title>MMM Fitness - Dashboard</title>
+    <link rel="stylesheet" href="/style.css" />
+    <title>MMM Fitness</title>
   </head>
   <body>
     <div class="container">
@@ -37,48 +37,65 @@
       </div>
 
       <div class="landing">
-        <div class="card-user">
-          <div class="card-title"><%= user.name %></div>
-          <div class="card-line">
-            <div class="card-icon-left">
-              <i class="fa-solid fa-envelope"></i>
-            </div>
-            <a class="card-user-link" href="#"><%= user.email %></a>
+        <div class="card">
+          <% if (typeof message !== 'undefined') { %>
+          <div class="error-message">
+            <strong><%= message %> </strong>
           </div>
-          <div class="card-line">
-            <div class="card-icon-left">
-              <i class="fa-solid fa-phone"></i>
-            </div>
-            <a class="card-user-link" href="#"><%= user.phone %></a>
-          </div>
-          <div class="card-menu">
-            <div class="">
-              <a
-                class="card-menu-icon-checkin card-menu-icon"
-                href="/user/<%= user._id %>"
-                ><i class="fa-solid fa-check-to-slot"></i
-              ></a>
-            </div>
-            <div class="">
-              <a
-                class="card-menu-icon-workout card-menu-icon"
-                href="/user/workouts/<%= user._id %>/user"
-                ><i class="fa-solid fa-dumbbell"></i
-              ></a>
-            </div>
-            <div class="">
-              <a
-                class="card-menu-icon-profile card-menu-icon"
-                href="/user/<%= user._id %>"
-                ><i class="fa-solid fa-user"></i
-              ></a>
-            </div>
+          <% } %>
+          <div class="card-title">WORKOUTS</div>
+
+          <label class="form-label">For <%= user.name.toUpperCase() %></label>
+
+          <input
+            type="hidden"
+            name="_id"
+            value="<%= user._id %>"
+            class="form-input"
+          />
+
+          <input
+            type="hidden"
+            name="name"
+            value="<%= user.name %>"
+            class="form-input"
+          />
+
+          <input
+            type="hidden"
+            name="password"
+            value="<%= user.password %>"
+            class="form-input"
+          />
+
+          <input
+            type="hidden"
+            name="email"
+            value="<%= user.email %>"
+            class="form-input"
+          />
+
+          <% if (user.workouts.length > 0) { %> <%
+          user.workouts.forEach(function(workout) { %>
+
+          <a
+            href="/user/workout/<%= user._id %>/<%= workout.title %>/user"
+            class="form-label workout-title"
+            ><%= workout.title %></a
+          >
+
+          <% }); %> <% } else { %>
+          <p>No workouts found.</p>
+          <% } %>
+
+          <div class="card-line-wo-btns">
+            <a href="/dashboard" class="form-btn">CANCEL</a>
           </div>
         </div>
       </div>
 
       <div class="footer">
-        <img class="logo-footer" src="./img/logodarkbg.png" alt="" />
+        <img class="logo-footer" src="/img/logodarkbg.png" alt="" />
 
         <div class="footertext">
           <div class="footertitle">MMM Fitness</div>

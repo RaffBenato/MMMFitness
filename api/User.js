@@ -4,6 +4,7 @@ const router = express.Router();
 const User = require("./../models/User");
 
 const path = require("path");
+const { title } = require("process");
 router.use(express.static(path.join(__dirname, "/../public")));
 
 router.post("/add", (req, res) => {
@@ -51,7 +52,6 @@ router.post("/update/:id", (req, res) => {
   let id = req.params.id;
   let postcodeUpperCase;
   let dateOfBirthvar;
-  let dateOfStartvar;
   let isAdminvar = false;
 
   if (
@@ -67,13 +67,12 @@ router.post("/update/:id", (req, res) => {
     if (typeof req.body.dateofbirth !== "undefined") {
       dateOfBirthvar = new Date(req.body.dateofbirth);
     }
-    if (typeof req.body.startdate !== "undefined") {
-      dateOfStartvar = new Date(req.body.startdate);
-    }
-    if (req.body.isadmin === "on") {
-      isAdminvar = true;
-    } else {
-      isadmin = false;
+    if (typeof req.body.isadmin !== "undefined") {
+      if (req.body.isadmin === "on") {
+        isAdminvar = true;
+      } else {
+        isadmin = false;
+      }
     }
 
     User.findByIdAndUpdate(id, {
@@ -89,7 +88,6 @@ router.post("/update/:id", (req, res) => {
       postcode: postcodeUpperCase,
       emergencycontact: req.body.emergencycontact,
       emergencynumber: req.body.emergencynumber,
-      startdate: dateOfStartvar,
       isadmin: isAdminvar,
     }).then((result) => {
       res.redirect("/admin");
@@ -115,6 +113,147 @@ router.get("/:id", (req, res) => {
       user: user,
     });
   });
+});
+
+router.get("/workout/:id/:title/:type", (req, res) => {
+  let titleVar = req.params.title;
+  let idVar = req.params.id;
+  let typeVar = req.params.type;
+
+  User.findOne({
+    _id: idVar,
+    workouts: { $elemMatch: { title: titleVar } },
+  })
+    .then((user) => {
+      if (user) {
+        const workout = user.workouts.find((w) => w.title === titleVar);
+        if (workout) {
+          let newWorkout = workout;
+          if (typeVar === "admin") {
+            res.render("editworkout.ejs", {
+              title: newWorkout.title,
+              workout: newWorkout.workout,
+              user: user,
+            });
+          } else if (typeVar === "user") {
+            res.render("myworkout.ejs", {
+              title: newWorkout.title,
+              workout: newWorkout.workout,
+              user: user,
+            });
+          }
+        } else {
+          console.log("Workout not found");
+        }
+      } else {
+        console.log("User not found");
+      }
+    })
+    .catch((error) => {
+      // Handle any errors
+      console.log(error);
+    });
+});
+
+router.get("/workouts/:id/:type", (req, res) => {
+  let id = req.params.id;
+  let type = req.params.type;
+  User.findById(id).then((user) => {
+    if (type === "admin") {
+      res.render("workouts.ejs", {
+        user: user,
+      });
+    } else if (type === "user") {
+      res.render("myworkouts.ejs", {
+        user: user,
+      });
+    }
+  });
+});
+
+router.get("/addworkout/:id", (req, res) => {
+  let id = req.params.id;
+  User.findById(id).then((user) => {
+    res.render("addworkout.ejs", {
+      user: user,
+    });
+  });
+});
+
+router.post("/addworkout/:id", (req, res) => {
+  let id = req.params.id;
+  if (req.body.title === "") {
+    return User.findById(id).then((user) => {
+      res.render("addworkout.ejs", {
+        message: "Enter workout Title.",
+        user: user,
+      });
+    });
+  } else {
+    const newWorkout = {
+      title: req.body.title,
+      workout: req.body.workout,
+    };
+
+    User.findByIdAndUpdate(id, {
+      $push: { workouts: newWorkout },
+    })
+      .then(() => {
+        return User.findById(id);
+      })
+      .then((user) => {
+        res.render("workouts.ejs", {
+          user: user,
+        });
+      });
+  }
+});
+
+router.post("/workouts/update/:userId/:workoutId", (req, res) => {
+  const userId = req.params.userId;
+  const workoutId = req.params.workoutId;
+  const updatedWorkout = req.body.workout;
+
+  User.findOneAndUpdate(
+    { _id: userId, "workouts.title": workoutId },
+    { $set: { "workouts.$.workout": updatedWorkout } },
+    { new: true }
+  )
+    .then((user) => {
+      if (user) {
+        res.render("workouts.ejs", {
+          user: user,
+        });
+      } else {
+        res.status(404).json({ message: "User not found" });
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({ message: "An error occurred", error });
+    });
+});
+
+router.get("/workouts/delete/:userId/:workoutId", (req, res) => {
+  const userId = req.params.userId;
+  const workoutId = req.params.workoutId;
+
+  User.findOneAndUpdate(
+    { _id: userId },
+    { $pull: { workouts: { title: workoutId } } },
+    { new: true }
+  )
+    .then((user) => {
+      if (user) {
+        res.render("workouts.ejs", {
+          user: user,
+        });
+      } else {
+        res.status(404).json({ message: "User not found" });
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({ message: "An error occurred", error });
+    });
 });
 
 module.exports = router;

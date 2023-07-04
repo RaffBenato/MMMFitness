@@ -198,13 +198,13 @@ a {
 }
 
 .card {
-  width: 90%;
+  width: 95%;
   min-height: 25vh;
   background-color: rgba(250, 235, 215, 0.425);
   margin-top: 20px;
   padding-top: 15px;
-  border: 3px white solid;
-  border-radius: 10px;
+  border: 1px white solid;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -232,8 +232,8 @@ a {
   background-color: rgba(250, 235, 215, 0.425);
   margin-top: 20px;
   padding-top: 15px;
-  border: 3px white solid;
-  border-radius: 10px;
+  border: 1px white solid;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -248,6 +248,7 @@ a {
   align-items: center;
   font-size: 2rem;
   margin-top: 15px;
+  text-decoration: none;
 }
 
 .card-line-btns {
@@ -255,8 +256,16 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   font-size: 2rem;
   margin-top: 15px;
+}
+
+.card-line-wo-btns {
+  font-size: 1.2rem;
+  margin-top: 60px;
+  margin-bottom: 30px;
+  justify-content: center;
 }
 
 .card-icon-left {
@@ -271,6 +280,8 @@ a {
   font-size: 1.3rem;
   margin: 0 15px;
   color: white;
+  text-decoration: none;
+  font-weight: lighter;
 }
 
 .card-menu {
@@ -287,7 +298,7 @@ a {
 }
 
 .card-menu-icon-checkin {
-  color: darkslategray;
+  color: green;
 }
 
 .card-menu-icon-workout {
@@ -295,7 +306,7 @@ a {
 }
 
 .card-menu-icon-edit {
-  color: darkgreen;
+  color: darkslategray;
 }
 
 .card-menu-icon-delete {
@@ -307,6 +318,14 @@ a {
   background-color: white;
   padding: 10px;
   border-radius: 5px;
+}
+
+.workout-title {
+  width: 80%;
+  background-color: black;
+  padding: 10px;
+  border-radius: 5px;
+  border: white 1px solid;
 }
 
 .slogan span {
@@ -343,6 +362,27 @@ input {
   color: white;
   font-size: 1.3rem;
   box-sizing: border-box;
+}
+
+.form-area {
+  width: 100%;
+  height: 80vh;
+  padding: 5px 10px;
+  background-color: grey;
+  color: white;
+  border: white 1px solid;
+  box-sizing: border-box;
+  resize: none;
+}
+
+.form-area-readonly {
+  width: 100%;
+  height: 80vh;
+  padding: 5px 10px;
+  background-color: grey;
+  color: white;
+  box-sizing: border-box;
+  resize: none;
 }
 
 .form-label {
